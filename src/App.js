@@ -61,6 +61,7 @@ class App extends Component {
         fetch(url)
             .then(respuesta => respuesta.json())
             .then(resultado => this.setState({imagenes: resultado.hits}))
+            .catch(error => console.log('Upsss, hubo algún error ...'))
     }
 
     datosBusqueda = (termino) => {
@@ -82,13 +83,22 @@ class App extends Component {
                 </div>
 
                 <div className="row justify-content-center">
-                    <Paginacion paginaAnterior={this.paginaAnterior}
-                                paginaSiguiente={this.paginaSiguiente}/>
+                    {
+                        this.state.imagenes.length > 0 ?
+                            <Paginacion paginaAnterior={this.paginaAnterior}
+                                        paginaSiguiente={this.paginaSiguiente}/> : ''
+                    }
 
-                    <Resultado imagenes={this.state.imagenes}/>
+                    {
+                        this.state.imagenes.length > 0 ?
+                            <Resultado imagenes={this.state.imagenes}/> : 'No hay imágenes para mostrar ...'
+                    }
 
-                    <Paginacion paginaAnterior={this.paginaAnterior}
-                                paginaSiguiente={this.paginaSiguiente}/>
+                    {
+                        this.state.imagenes.length > 0 ?
+                            <Paginacion paginaAnterior={this.paginaAnterior}
+                                        paginaSiguiente={this.paginaSiguiente}/> : ''
+                    }
                 </div>
 
             </div>
